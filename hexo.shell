@@ -1,0 +1,11 @@
+#！/bin/bash 
+
+# Date：21:54 2020-10-26 
+# Author: liyanippon
+# Description: hexo 方便执行 
+# Version： 1.0
+
+sudo hexo clean
+sudo hexo g
+sudo hexo s
+echo "success"
