@@ -1,5 +1,7 @@
 ---
 title: Hello World
+tags: 指导
+categories: 技术
 ---
 这句话我看过无数次，至今仍意味深长
 <!--more-->
