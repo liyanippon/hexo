@@ -20,7 +20,7 @@ social_links:
     link: https://github.com/jylzs369
     icon: '&#xe6b7;'
   mail:
-    link: mailto:jylzs369@163.com
+    link: mailtoliyanippon:liyanippon@outlook.com
     icon: '&#xe61a;'
   rss:
     link: /atom.xml
@@ -28,9 +28,9 @@ social_links:
 
 # 配置主页模板 INDEX TEMPLATE
 # 选项:
-#   - show_all_posts: 是否展示所有文章
-#   - post_count: 是否仅显示N篇文章
-#   - sort_updated: 是否按更新时间排序/否则通过创建时间排序
+    show_all_posts: 是否展示所有文章
+    post_count: 是否仅显示N篇文章
+    sort_updated: 是否按更新时间排序/否则通过创建时间排序
 index:
   show_all_posts: false
   post_count: 3
@@ -52,7 +52,7 @@ post:
 # end_year未设置则默认设置当前年份
 copyright:
   start_year: 2020
-  end_year:
+  end_year: 
 
 ##################################################
 # 外观 APPEARANCE
@@ -60,9 +60,9 @@ copyright:
 
 # 配置网站图标 FAVICON
 # 支持以下三端：
-#   - desktop:  favion.ico
-#   - android: 192x192 PNG
-#   - apple:  180x180 PNG
+#  -  desktop:  favion.ico
+#  -  android: 192x192 PNG
+#  -  apple:  180x180 PNG
 # 在线生成工具： https://www.favicon.cc/
 favicon:
   desktop:

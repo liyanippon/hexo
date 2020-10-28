@@ -33,7 +33,7 @@ grant all privileges on wordpressdb.* to 'wordpress'@'localhost';
 flush privileges;
 show databases;
 ```
-## EC2 里面的mysql如何使用mysqlbench连接
+## EC2 里面的mysql使用mysqlbench连接
 ```
 Connection Name:myblogs
 Connection Method:Stand TCP/IP over SSH
