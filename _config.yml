@@ -5,7 +5,7 @@
 # Site
 title: 沦落天涯人，清霜伴我行
 subtitle: '缘来缘往'
-description: '沦落天涯人，清霜伴我行'
+description: '海子说：面朝大海，春暖花开。如今已是沦落天涯人'
 keywords: 
 author: 码酱
 language: en
@@ -45,13 +45,15 @@ render_drafts: false
 post_asset_folder: false
 relative_link: false
 future: true
-highlight:
+
+# highlight:
+highlight: 
   enable: true
   line_number: true
   auto_detect: false
   tab_replace: ''
   wrap: true
-  hljs: true
+  hljs: false
 
 prismjs:
   enable: false
@@ -100,7 +102,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: lagom
+# theme: lagom
+# theme: cactus
+theme: ocean
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
