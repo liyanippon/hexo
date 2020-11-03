@@ -5,7 +5,7 @@
 # Site
 title: 沦落天涯人，清霜伴我行
 subtitle: '缘来缘往'
-description: '海子说：面朝大海，春暖花开。如今已是沦落天涯人'
+description: '很久以前我就想拥有自己的博客，近期终于实现了。感谢github，感谢开源。同时在aws上也搭建了自己的博客，虽然使用wordpress源码，在搭建的过程中学习了很多的知识。<br> 很然目前很多人经常使用的电脑被智能手机所代替，腾讯博客也已经关闭。对于程序员的我博客仍然重要的。在相当长的时间里，我还将继续使用电脑，而不是手机。 <br> github上的博客系统注定是为程序员打造的，身为其中的我感到一丝自豪。" 海子说面朝大海，春暖花开,如今我已是沦落天涯人'
 keywords: 
 author: 码酱
 language: en
@@ -46,7 +46,6 @@ post_asset_folder: false
 relative_link: false
 future: true
 
-# highlight:
 highlight: 
   enable: true
   line_number: true
@@ -104,7 +103,13 @@ ignore:
 ## Themes: https://hexo.io/themes/
 # theme: lagom
 # theme: cactus
-theme: ocean
+# theme: ocean
+# theme: pln
+# theme: prontera
+# theme: solar
+# theme: snark
+theme: ils
+# theme: macleaya
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
