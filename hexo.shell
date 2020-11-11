@@ -5,7 +5,7 @@
 # Description: hexo 方便执行 
 # Version： 1.0
 
-sudo hexo clean
-sudo hexo g
-sudo hexo s
+hexo clean
+hexo g
+hexo s
 echo "success"

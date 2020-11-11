@@ -89,5 +89,78 @@ export default Article;
 
 ```
 
+## React路由实现
+需要使用第三方插件**react-router-dom**
+```bash sudo cnpm install react-router-dom --save```
+App.js
+```javascript
+import { BrowserRouter, Route } from 'react-router-dom';
 
+function App() {
+  return (
+    <div> 
+      <head />
+      <BrowserRouter>
+        <div>
+          {/*exact 完全匹配*/}
+          <Route path='/' exact render={()=><div>home</div>}></Route>
+          <Route path='/detail' exact render={()=><div>detail</div>}></Route>
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+}
+```
+## PropTypes和DefaultProps的应用
++ **proptypes**用于限制父组件组件向子组件传递**参数类型强校验**
+```javascript
+//引入
+import PropTypes from 'prop-types';
+//在最后的位置添加
+TodoItem.PropTypes = {
+    //isRequired 含义：如果没有传值也会报错
+    test: PropTypes.string.isRequired,
+    //字符串
+    content: PropTypes.string,
+    //函数
+    deleteItem: PropTypes.func,
+    //数值型
+    index: PropTypes.number
+}
+export default TodoItem;
+```
++ DefaultProps默认值设定
+```javascript
+//默认值，没有接收到值，显示默认值
+TodoItem.defaultProps = {
+    test: 'hello word'
+}
+```
+## shouldComponentUpdate
+```javascript
+    // 避免重复渲染
+    shouldComponentUpdate(nextProps,nextState){
+        if(nextProps.content != this.props.content){
+            return true;
+        }else{
+            return false;
+        }
+    }
+```
+## ajax
+    //ajax请求
+    componentDidMount(){
+        axios.get('/api/todolist').then((res) => {
+            console.log(res.data);
+            this.setState(() => ({
+                list: [...res.data]
+            }));
+        }).catch(() => {
+            //alert('error')
+        })
+    }
+
+## Redux使用 （数据管理）
+因为关系比较复杂，我使用流程图来说明
+![avator](2020111101.jpeg)
 
