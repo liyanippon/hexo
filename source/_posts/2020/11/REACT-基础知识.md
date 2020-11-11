@@ -160,7 +160,16 @@ TodoItem.defaultProps = {
         })
     }
 
+
+
 ## Redux使用 （数据管理）
 因为关系比较复杂，我使用流程图来说明
-![avator](2020111101.jpeg)
+```
+  Action   -->   Store <==> Reducers
+ Creators          |    (newState)
+   |               |
+   |      (state)  V
+      <--  React Components
+```
+由于不能使用流程图，图片也支持的不好只好使用字符来代替，大致的流程图就是这样.源码我会在项目中附上，这里就不再说明了
 

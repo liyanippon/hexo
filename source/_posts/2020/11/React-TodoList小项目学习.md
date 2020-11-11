@@ -210,7 +210,155 @@ TodoItem.defaultProps = {
     test: 'hello word'
 }
 export default TodoItem;
-``
-
+```
 ## redux 实现todolist功能
+**使用redux完成todolist功能** ，
+样式使用了**antd**这次 ***input彻底好用了***
+**主要文件**
+index.js
+```js
+import { createStore } from 'redux';
+import reducer from './reducer';
+
+const store = createStore(reducer);
+
+export default store
+```
+
+TodoList.js
+```jsx
+import React,{ Component } from 'react';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+import { Input, Button, List, Typography, Divider} from 'antd';
+import store from './store/index.js';
+
+//list测试数据
+const data = [
+    'Racing car sprays burning fuel into crowd.',
+    'Japanese princess to wed commoner.',
+    'Australian walks 100km after outback crash.',
+    'Man charged over missing wedding girl.',
+    'Los Angeles battles huge wildfires.',
+  ];
+  
+/**
+ * 使用antd ui框架 https://ant.design/components/list-cn/#header
+ * 使用 redux 框架
+ * Input 可以正常使用了
+ */
+class TodoList extends Component{
+    constructor(props){
+        super(props);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        console.log(store.getState());
+        this.state = store.getState();
+        this.handleStoreChange = this.handleStoreChange.bind(this);
+        this.handleBtnClick = this.handleBtnClick.bind(this);
+        store.subscribe(this.handleStoreChange)
+    }
+
+    handleInputChange(e){
+        const action = {
+            type: 'change_input_value',
+            value: e.target.value
+        }
+        store.dispatch(action);
+        console.log(e.target);
+    }
+
+    handleStoreChange(){
+        this.setState(store.getState());
+    }
+
+    handleBtnClick(){
+        const action ={
+            type: 'add_todo_item'
+        };
+        store.dispatch(action);
+    }
+
+    handleItemDelete(index){
+        const action = {
+            type: 'delete_todo_item',
+            index
+        }
+        store.dispatch(action);
+    }
+
+    render(){
+        return(
+            <div style={{marginTop:'10px',marginLeft:'10px'}}>
+                <div>
+                    <input 
+                        value={this.state.inputValue} 
+                        placeholder='todo info' 
+                        style={{marginRight:'10px',width:'230px'}} 
+                        onChange={this.handleInputChange}
+                    />
+                    <Button type="primary" onClick={this.handleBtnClick}>提交</Button>
+                </div>
+                <List
+                    style={{marginTop: '10px',width: '300px'}}
+                    bordered
+                    dataSource={this.state.list}
+                    renderItem={(item,index) => (
+                        <List.Item onClick={this.handleItemDelete.bind(this,index)}>
+                            {item}
+                        </List.Item>
+                    )}
+                />
+            </div>
+
+        )
+    }
+
+}
+export default TodoList;
+```
+
+创建store文件夹，新建两个文件
+index.js
+```jsx
+import { createStore } from 'redux';
+import reducer from './reducer';
+
+const store = createStore(reducer);
+
+export default store;
+```
+reducer.js
+```jsx
+import { act } from "react-dom/test-utils";
+import store from ".";
+
+const defaultState ={
+    inputValue: '123',
+    list: [1,2]
+}
+
+//reducer可以接收state，但是不能修改state
+export default (state = defaultState, action) => {
+    
+    if (action.type === 'change_input_value'){
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.inputValue = action.value;
+        return newState;
+    }
+
+    if (action.type === 'add_todo_item'){
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list.push(newState.inputValue);
+        newState.inputValue = '';
+        console.log(newState);
+        return newState;
+    }
+
+    if(action.type === 'delete_todo_item'){
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list.splice(action.index,1);
+        return newState;
+    }
+    return state;
+}
+```
 
