@@ -1,6 +1,6 @@
 ---
 title: REACT 基础知识
-date: 2020-11-02 22:28:29
+date: 2020-11-12 11:13:29
 categories: 技术
 tags: 指导
 ---
@@ -160,8 +160,6 @@ TodoItem.defaultProps = {
         })
     }
 
-
-
 ## Redux使用 （数据管理）
 因为关系比较复杂，我使用流程图来说明
 ```
@@ -172,4 +170,146 @@ TodoItem.defaultProps = {
       <--  React Components
 ```
 由于不能使用流程图，图片也支持的不好只好使用字符来代替，大致的流程图就是这样.源码我会在项目中附上，这里就不再说明了
+
+## 使用常量代替字符串
+新创建一个文件 **actionTypes.js**
+```jsx
+export const CHANGE_INPUT_VALUE = 'change_input_value';
+export const ADD_TODO_ITEM = 'add_todo_item';
+export const DELETE_TODO_ITEM = 'delete_todo_item
+```
+使用 **reducer.js**
+```jsx
+import { ADD_TODO_ITEM, CHANGE_INPUT_VALUE, DELETE_TODO_ITEM } from './actionTypes';
+// 把字符串替换掉
+```
+
+## 使用 ***actionCreator***统一创建action
+创建文件actionCreator.js
+```jsx
+import { ADD_TODO_ITEM, CHANGE_INPUT_VALUE, DELETE_TODO_ITEM} from './actionTypes'
+
+export const getInputChangeAction = (value) => ({
+    type: CHANGE_INPUT_VALUE,
+    value
+});
+
+export const getAddItemAction = (value) => ({
+    type: ADD_TODO_ITEM
+});
+
+export const getDeleteTodoItem = (index) => ({
+    type: DELETE_TODO_ITEM
+});
+```
+在TodoList.js中使用
+```jsx
+import { getInputChangeAction, getAddItemAction, getDeleteTodoItem } from './store/actionCreators';
+
+handleInputChange(e){
+        /*const action = {
+            type: CHANGE_INPUT_VALUE,
+            value: e.target.value
+        }*/
+        const action = getInputChangeAction(e.target.value);
+        store.dispatch(action);
+        console.log(e.target);
+}
+
+handleBtnClick(){
+        /*const action ={
+            type: ADD_TODO_ITEM
+        };*/
+        const action = getAddItemAction();
+        store.dispatch(action);
+}
+
+handleItemDelete(index){
+        /*const action = {
+            type: DELETE_TODO_ITEM,
+            index
+        }*/
+        const action = getDeleteTodoItem();
+        store.dispatch(action);
+}
+```
+**目前store文件夹的目录结构如下**
+```
+store
+  |
+  |-----actionCreators.js
+  |
+  |-----actionType.js
+  |
+  |-----index.js
+  |
+  |-----reducer.js
+```
+
+## UI界面和容器分离
+创建一个新文件 ***TodoListUI.js***
+注意 ***handleItemDelete***函数的写法 
+```jsx
+import React, { Component } from 'react';
+import { Input, Button, List, Typography, Divider} from 'antd';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
+
+class TodoListUI extends Component {
+    render() {
+        return (
+            <div style={{marginTop:'10px',marginLeft:'10px'}}>
+                <div>
+                    <input 
+                        value={this.props.inputValue} 
+                        placeholder='todo info' 
+                        style={{marginRight:'10px',width:'230px'}} 
+                        onChange={this.props.handleInputChange}
+                    />
+                    <Button type="primary" onClick={this.props.handleBtnClick}>提交</Button>
+                </div>
+                <List
+                    style={{marginTop: '10px',width: '300px'}}
+                    bordered
+                    dataSource={this.props.list}
+                    renderItem={(item,index) => (
+                        <List.Item onClick={(index) => {this.props.handleItemDelete(index)}}>
+                            {item}
+                        </List.Item>
+                    )}
+                />
+            </div>
+        )
+    }
+}
+export default TodoListUI;
+```
+
+修改 ***TodoListUI.js*** 传值
+```jsx
+    render(){
+        return(
+            <TodoListUI
+                inputValue ={this.state.inputValue}
+                handleInputChange = {this.handleInputChange}
+                handleBtnClick = {this.handleBtnClick}
+                list = {this.state.list}
+                handleItemDelete = {this.handleItemDelete} 
+            />
+        )
+    }
+```
+***bind***绑定在构造函数完成
+
+```jsx
+constructor(props){
+        super(props);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        console.log(store.getState());
+        this.state = store.getState();
+        this.handleStoreChange = this.handleStoreChange.bind(this);
+        this.handleBtnClick = this.handleBtnClick.bind(this);
+        this.handleItemDelete = this.handleItemDelete.bind(this);
+        store.subscribe(this.handleStoreChange)
+    }
+```
 
