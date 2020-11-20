@@ -103,12 +103,12 @@ ignore:
 ## Themes: https://hexo.io/themes/
 # theme: lagom
 # theme: cactus
-# theme: ocean
+theme: ocean
 # theme: pln
 # theme: prontera
 # theme: solar
 # theme: snark
-theme: ils
+# theme: ils
 # theme: macleaya
 
 # Deployment

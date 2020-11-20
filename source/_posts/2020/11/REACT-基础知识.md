@@ -313,3 +313,65 @@ constructor(props){
     }
 ```
 
+## 无状态组件 
+性能高，只有render函数（UI组件）
+```jsx
+const TodoListUI= (props) => {
+    return (
+        <div style={{marginTop:'10px',marginLeft:'10px'}}>
+            <div>
+                <input 
+                    value={props.inputValue} 
+                    placeholder='todo info' 
+                    style={{marginRight:'10px',width:'230px'}} 
+                    onChange={props.handleInputChange}
+                />
+                <Button type="primary" onClick={props.handleBtnClick}>提交</Button>
+            </div>
+            <List
+                style={{marginTop: '10px',width: '300px'}}
+                bordered
+                dataSource={props.list}
+                renderItem={(item,index) => (
+                    <List.Item onClick={(index) => {props.handleItemDelete(index)}}>
+                        {item}
+                    </List.Item>
+                )}
+            />
+        </div> 
+    )
+}
+```
+
+## Ajax请求初始化
+前一段时间使用软件没有成功，这一次自己通过springboot返回数据，成功了
+主要改变的代码如下
+***TodoList.js***
+```jsx
+import axios from 'axios';
+
+    componentDidMount(){
+        axios.get("http://192.168.43.254:8080/say").then((res)=>{
+            console.log(res.data);
+            const data = res.data;
+            const action = initListAction(data);
+            store.dispatch(action);
+        });
+    }
+```
+***actionCreators.js***
+```jsx
+export const initListAction = (data) => ({
+    type: INIT_LIST_ACTION,
+    data
+})
+```
+***reducer.js***
+```jsx
+    if(action.type === INIT_LIST_ACTION){
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list = action.data;
+        return newState;
+    }
+
+```
